@@ -82,7 +82,6 @@
             color: #999;
         }
 
-        /* Revenue Cards */
         .revenue-rooms { border-left: 5px solid #667eea; }
         .revenue-rooms .card-value { color: #667eea; }
 
@@ -95,7 +94,7 @@
         .revenue-events { border-left: 5px solid #ed8936; }
         .revenue-events .card-value { color: #ed8936; }
 
-        /* Expense Cards */
+        
         .expense-diesel { border-left: 5px solid #fc8181; }
         .expense-diesel .card-value { color: #fc8181; }
 
@@ -111,7 +110,7 @@
         .expense-drinks { border-left: 5px solid #6c5ce7; }
         .expense-drinks .card-value { color: #6c5ce7; }
 
-        /* Summary Cards */
+        
         .total-revenue { border-left: 5px solid #48bb78; }
         .total-revenue .card-value { color: #48bb78; }
 
@@ -131,7 +130,7 @@
         .profit-positive { color: #48bb78 !important; }
         .profit-negative { color: #f56565 !important; }
 
-        /* Controls */
+        
         .controls-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -217,7 +216,7 @@
             background: #cbd5e0;
         }
 
-        /* Charts Section */
+        
         .charts-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
@@ -243,7 +242,7 @@
             max-height: 400px;
         }
 
-        /* Responsive */
+        
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8em;
@@ -273,15 +272,14 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
+        
         <header>
             <h1>🏨 Hotel Financial Dashboard</h1>
             <p class="date-info">Today: <span id="currentDate"></span></p>
         </header>
 
-        <!-- Controls Section -->
         <div class="controls-section">
-            <!-- Revenue Controls -->
+           
             <div class="control-box">
                 <h2>💰 Daily Revenue Input</h2>
                 
@@ -311,7 +309,7 @@
                 </div>
             </div>
 
-            <!-- Expenses Controls -->
+            
             <div class="control-box">
                 <h2>💸 Daily Expenses Input</h2>
                 
@@ -347,9 +345,9 @@
             </div>
         </div>
 
-        <!-- Display Cards -->
+    
         <div class="dashboard-grid">
-            <!-- Revenue Section -->
+            
             <div class="card revenue-rooms">
                 <div class="card-title">Rooms Revenue</div>
                 <div class="card-value" id="roomsRevenue">$5,000.00</div>
@@ -374,7 +372,7 @@
                 <div class="card-subtitle">Daily</div>
             </div>
 
-            <!-- Expense Section -->
+            
             <div class="card expense-diesel">
                 <div class="card-title">Diesel Expense</div>
                 <div class="card-value" id="dieselExpense">$800.00</div>
@@ -405,7 +403,7 @@
                 <div class="card-subtitle">Daily</div>
             </div>
 
-            <!-- Summary Section -->
+            
             <div class="card total-revenue">
                 <div class="card-title">Total Revenue</div>
                 <div class="card-value" id="totalRevenue">$9,500.00</div>
@@ -425,27 +423,27 @@
             </div>
         </div>
 
-        <!-- Charts -->
+       
         <div class="charts-section">
-            <!-- Revenue Breakdown Chart -->
+            
             <div class="chart-container">
                 <div class="chart-title">📊 Revenue Breakdown</div>
                 <canvas id="revenueChart"></canvas>
             </div>
 
-            <!-- Expense Breakdown Chart -->
+            
             <div class="chart-container">
                 <div class="chart-title">💸 Expense Breakdown</div>
                 <canvas id="expenseChart"></canvas>
             </div>
 
-            <!-- Cash Flow Trend Chart -->
+            
             <div class="chart-container">
                 <div class="chart-title">📈 7-Day Cash Flow Trend</div>
                 <canvas id="cashFlowChart"></canvas>
             </div>
 
-            <!-- Revenue vs Expenses Chart -->
+           
             <div class="chart-container">
                 <div class="chart-title">⚖️ Revenue vs Expenses (7 Days)</div>
                 <canvas id="comparisonChart"></canvas>
@@ -454,7 +452,7 @@
     </div>
 
     <script>
-        // Data storage
+       
         let data = {
             revenue: {
                 rooms: 5000,
@@ -469,10 +467,10 @@
                 foodExpense: 1000,
                 drinks: 500
             },
-            history: [] // 7-day history
+            history: [] 
         };
 
-        // Initialize with 7 days of sample data
+        
         function initializeHistory() {
             for (let i = 6; i >= 0; i--) {
                 const date = new Date();
@@ -486,7 +484,7 @@
             }
         }
 
-        // Update date
+     
         function updateDate() {
             const today = new Date().toLocaleDateString('en-US', {
                 weekday: 'long',
@@ -497,7 +495,7 @@
             document.getElementById('currentDate').textContent = today;
         }
 
-        // Format currency
+       
         function formatCurrency(value) {
             return new Intl.NumberFormat('en-US', {
                 style: 'currency',
@@ -505,7 +503,7 @@
             }).format(value);
         }
 
-        // Calculate totals
+        
         function calculateTotals() {
             const totalRevenue = data.revenue.rooms + data.revenue.food + data.revenue.bar + data.revenue.events;
             const totalExpenses = data.expenses.diesel + data.expenses.salaries + data.expenses.maintenance + data.expenses.foodExpense + data.expenses.drinks;
@@ -515,22 +513,22 @@
             return { totalRevenue, totalExpenses, profitLoss, profitMargin };
         }
 
-        // Update display cards
+        
         function updateCards() {
-            // Revenue cards
+            
             document.getElementById('roomsRevenue').textContent = formatCurrency(data.revenue.rooms);
             document.getElementById('foodRevenue').textContent = formatCurrency(data.revenue.food);
             document.getElementById('barRevenue').textContent = formatCurrency(data.revenue.bar);
             document.getElementById('eventsRevenue').textContent = formatCurrency(data.revenue.events);
 
-            // Expense cards
+            
             document.getElementById('dieselExpense').textContent = formatCurrency(data.expenses.diesel);
             document.getElementById('salariesExpense').textContent = formatCurrency(data.expenses.salaries);
             document.getElementById('maintenanceExpense').textContent = formatCurrency(data.expenses.maintenance);
             document.getElementById('foodExpense').textContent = formatCurrency(data.expenses.foodExpense);
             document.getElementById('drinksExpense').textContent = formatCurrency(data.expenses.drinks);
 
-            // Calculate and update totals
+          
             const { totalRevenue, totalExpenses, profitLoss, profitMargin } = calculateTotals();
 
             document.getElementById('totalRevenue').textContent = formatCurrency(totalRevenue);
@@ -542,11 +540,11 @@
 
             document.getElementById('profitMargin').textContent = profitMargin + '% margin';
 
-            // Update charts
+            
             updateCharts();
         }
 
-        // Update revenue from inputs
+        
         function updateRevenue() {
             data.revenue.rooms = parseFloat(document.getElementById('roomsInput').value) || 0;
             data.revenue.food = parseFloat(document.getElementById('foodInput').value) || 0;
@@ -556,7 +554,7 @@
             updateCards();
         }
 
-        // Update expenses from inputs
+        
         function updateExpenses() {
             data.expenses.diesel = parseFloat(document.getElementById('dieselInput').value) || 0;
             data.expenses.salaries = parseFloat(document.getElementById('salariesInput').value) || 0;
@@ -567,7 +565,7 @@
             updateCards();
         }
 
-        // Generate random revenue
+     
         function generateRandomRevenue() {
             data.revenue.rooms = Math.random() * 8000 + 2000;
             data.revenue.food = Math.random() * 3000 + 1000;
@@ -583,7 +581,7 @@
             updateCards();
         }
 
-        // Generate random expenses
+        
         function generateRandomExpenses() {
             data.expenses.diesel = Math.random() * 1000 + 500;
             data.expenses.salaries = Math.random() * 2000 + 2000;
@@ -601,10 +599,10 @@
             updateCards();
         }
 
-        // Add data to history
+        
         function addToHistory() {
             const { totalRevenue, totalExpenses } = calculateTotals();
-            data.history.shift(); // Remove oldest
+            data.history.shift(); 
             data.history.push({
                 date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
                 revenue: totalRevenue,
@@ -612,10 +610,10 @@
             });
         }
 
-        // Chart instances
+       
         let revenueChart, expenseChart, cashFlowChart, comparisonChart;
 
-        // Initialize charts
+       
         function initializeCharts() {
             const chartOptions = {
                 responsive: true,
@@ -627,7 +625,7 @@
                 }
             };
 
-            // Revenue Chart
+            
             const revenueCtx = document.getElementById('revenueChart').getContext('2d');
             revenueChart = new Chart(revenueCtx, {
                 type: 'doughnut',
@@ -643,7 +641,7 @@
                 options: chartOptions
             });
 
-            // Expense Chart
+            
             const expenseCtx = document.getElementById('expenseChart').getContext('2d');
             expenseChart = new Chart(expenseCtx, {
                 type: 'doughnut',
@@ -659,7 +657,7 @@
                 options: chartOptions
             });
 
-            // Cash Flow Chart
+           
             const cashFlowCtx = document.getElementById('cashFlowChart').getContext('2d');
             cashFlowChart = new Chart(cashFlowCtx, {
                 type: 'line',
@@ -684,7 +682,7 @@
                 }
             });
 
-            // Revenue vs Expenses Chart
+            
             const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
             comparisonChart = new Chart(comparisonCtx, {
                 type: 'bar',
@@ -715,9 +713,8 @@
             });
         }
 
-        // Update charts
         function updateCharts() {
-            // Revenue Chart
+       
             revenueChart.data.datasets[0].data = [
                 data.revenue.rooms,
                 data.revenue.food,
@@ -726,7 +723,7 @@
             ];
             revenueChart.update();
 
-            // Expense Chart
+            
             expenseChart.data.datasets[0].data = [
                 data.expenses.diesel,
                 data.expenses.salaries,
@@ -736,19 +733,19 @@
             ];
             expenseChart.update();
 
-            // Cash Flow Chart
+          
             cashFlowChart.data.labels = data.history.map(d => d.date);
             cashFlowChart.data.datasets[0].data = data.history.map(d => d.revenue - d.expenses);
             cashFlowChart.update();
 
-            // Comparison Chart
+            
             comparisonChart.data.labels = data.history.map(d => d.date);
             comparisonChart.data.datasets[0].data = data.history.map(d => d.revenue);
             comparisonChart.data.datasets[1].data = data.history.map(d => d.expenses);
             comparisonChart.update();
         }
 
-        // Initialize on page load
+        
         window.addEventListener('DOMContentLoaded', () => {
             updateDate();
             initializeHistory();
